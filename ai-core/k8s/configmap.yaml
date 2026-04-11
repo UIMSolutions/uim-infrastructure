@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ai-core-config
+  labels:
+    app: ai-core
+    part-of: uim-platform
+data:
+  AICORE_HOST: "0.0.0.0"
+  AICORE_PORT: "8090"
