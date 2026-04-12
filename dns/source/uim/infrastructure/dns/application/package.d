@@ -1,2 +1,2 @@
-module dns_service.application;
+module uim.infrastructure.dns.application;
 
