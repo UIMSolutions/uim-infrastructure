@@ -8,7 +8,6 @@ import dns_service.infrastructure.persistence.in_memory_dns_repository : InMemor
 import std.conv : to;
 import std.exception : collectException;
 import std.string : fromStringz;
-import std.array : idup;
 import core.stdc.stdlib : getenv;
 import vibe.vibe;
 

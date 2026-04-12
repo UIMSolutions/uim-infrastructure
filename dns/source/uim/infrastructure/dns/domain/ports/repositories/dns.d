@@ -1,4 +1,4 @@
-module dns_service.domain.ports.dns_repository;
+module dns_service.domain.ports.repositories.dns;
 
 import dns_service.domain.entities.dns_record : DNSRecord, RecordType;
 
