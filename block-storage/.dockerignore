@@ -1,0 +1,12 @@
+uim-block-storage-service
+.git
+.dub
+.cache
+*.o
+*.a
+*.obj
+*.exe
+*.pdb
+*.lst
+*.html
+*.json.tmp
