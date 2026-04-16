@@ -1,0 +1,1 @@
+module monitoring_service.infrastructure.persistence.memory;
