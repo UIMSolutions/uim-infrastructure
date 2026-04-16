@@ -1,0 +1,5 @@
+.dub
+.git
+*.o
+*.a
+uim-redis-service
