@@ -107,7 +107,9 @@ class InMemoryDatabaseRepository : IDatabaseRepository {
         }
     }
 
-    /// Simple equality filter: every top-level key in filter must match the row data.
+    /// Strict equality filter: every top-level key present in `filter` must exist
+    /// in `data` with an identical value (no type coercion, no partial matching).
+    /// Returns false when either argument is not a JSON object.
     private bool matchesFilter(Json data, Json filter) {
         if (data.type != Json.Type.object || filter.type != Json.Type.object) {
             return false;

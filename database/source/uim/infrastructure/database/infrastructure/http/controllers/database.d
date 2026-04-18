@@ -13,6 +13,7 @@ import std.string : split, startsWith;
 import vibe.http.router : URLRouter;
 import vibe.http.server : HTTPServerRequest, HTTPServerResponse;
 import vibe.http.common : HTTPStatus;
+import vibe.core.log : logError;
 import vibe.data.json : Json, serializeToJsonString;
 
 /// JSON view projected from a DatabaseRow for HTTP responses.
@@ -176,7 +177,8 @@ class DatabaseController {
             auto rows = listUseCase.execute(query);
             writeJson(res, serializeToJsonString(rowsToViews(rows)), HTTPStatus.ok);
         } catch (Exception ex) {
-            writeJson(res, `{ "error": "` ~ ex.msg ~ `" }`, HTTPStatus.internalServerError);
+            logError("listRows error: %s", ex.msg);
+            writeJson(res, `{ "error": "internal server error" }`, HTTPStatus.internalServerError);
         }
     }
 
@@ -190,7 +192,8 @@ class DatabaseController {
             }
             writeJson(res, serializeToJsonString(rowToView(row)), HTTPStatus.ok);
         } catch (Exception ex) {
-            writeJson(res, `{ "error": "` ~ ex.msg ~ `" }`, HTTPStatus.internalServerError);
+            logError("findRow error: %s", ex.msg);
+            writeJson(res, `{ "error": "internal server error" }`, HTTPStatus.internalServerError);
         }
     }
 
@@ -200,7 +203,8 @@ class DatabaseController {
             auto rows = findRowsUseCase.execute(query);
             writeJson(res, serializeToJsonString(rowsToViews(rows)), HTTPStatus.ok);
         } catch (Exception ex) {
-            writeJson(res, `{ "error": "` ~ ex.msg ~ `" }`, HTTPStatus.internalServerError);
+            logError("filterRows error: %s", ex.msg);
+            writeJson(res, `{ "error": "internal server error" }`, HTTPStatus.internalServerError);
         }
     }
 
