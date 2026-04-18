@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: waf-service-config
+  namespace: uim-waf
+data:
+  PORT: "8080"
+  BIND_ADDRESS: "0.0.0.0"
