@@ -1,7 +1,7 @@
-module waf_service.domain.entities.waf_event;
+module uim.infrastructure.waf.domain.entities.waf_event;
 
 import std.conv : to;
-import waf_service.domain.entities.waf_rule : RuleAction;
+import uim.infrastructure.waf.domain.entities.waf_rule : RuleAction;
 
 struct WafEvent {
     string id;

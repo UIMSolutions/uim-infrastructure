@@ -1,8 +1,8 @@
 module uim.infrastructure.waf.infrastructure.persistence.memory.policy_repository;
 
 import core.sync.mutex : Mutex;
-import waf_service.domain.entities.waf_policy : WafPolicy;
-import waf_service.domain.ports.repositories.waf_policy : IWafPolicyRepository;
+import uim.infrastructure.waf.domain.entities.waf_policy : WafPolicy;
+import uim.infrastructure.waf.domain.ports.repositories.waf_policy : IWafPolicyRepository;
 
 class InMemoryPolicyRepository : IWafPolicyRepository {
     private WafPolicy[] policies;
@@ -53,7 +53,7 @@ class InMemoryPolicyRepository : IWafPolicyRepository {
 }
 
 unittest {
-    import waf_service.domain.entities.waf_policy : PolicyMode;
+    import uim.infrastructure.waf.domain.entities.waf_policy : PolicyMode;
 
     auto repo = new InMemoryPolicyRepository();
     auto policy = WafPolicy("p1", "Default", ["r1"], PolicyMode.PREVENTION, "test");

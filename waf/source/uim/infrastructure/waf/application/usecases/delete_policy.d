@@ -1,6 +1,6 @@
-module waf_service.application.use_cases.delete_policy;
+module uim.infrastructure.waf.application.use_cases.delete_policy;
 
-import waf_service.domain.ports.repositories.waf_policy : IWafPolicyRepository;
+import uim.infrastructure.waf.domain.ports.repositories.waf_policy : IWafPolicyRepository;
 
 class DeletePolicyUseCase {
     private IWafPolicyRepository repository;

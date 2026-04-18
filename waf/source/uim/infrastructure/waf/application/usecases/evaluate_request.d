@@ -1,4 +1,4 @@
-module waf_service.application.use_cases.evaluate_request;
+module uim.infrastructure.waf.application.use_cases.evaluate_request;
 
 import std.conv : to;
 import std.datetime : Clock;
@@ -6,13 +6,13 @@ import std.digest : toHexString;
 import std.digest.sha : sha256Of;
 import std.regex : regex, matchFirst;
 import std.string : toLower, indexOf;
-import waf_service.application.dto.commands : EvaluateRequestCommand;
-import waf_service.domain.entities.waf_event : WafEvent;
-import waf_service.domain.entities.waf_policy : WafPolicy, PolicyMode;
-import waf_service.domain.entities.waf_rule : WafRule, RuleAction;
-import waf_service.domain.ports.repositories.waf_event : IWafEventRepository;
-import waf_service.domain.ports.repositories.waf_policy : IWafPolicyRepository;
-import waf_service.domain.ports.repositories.waf_rule : IWafRuleRepository;
+import uim.infrastructure.waf.application.dto.commands : EvaluateRequestCommand;
+import uim.infrastructure.waf.domain.entities.waf_event : WafEvent;
+import uim.infrastructure.waf.domain.entities.waf_policy : WafPolicy, PolicyMode;
+import uim.infrastructure.waf.domain.entities.waf_rule : WafRule, RuleAction;
+import uim.infrastructure.waf.domain.ports.repositories.waf_event : IWafEventRepository;
+import uim.infrastructure.waf.domain.ports.repositories.waf_policy : IWafPolicyRepository;
+import uim.infrastructure.waf.domain.ports.repositories.waf_rule : IWafRuleRepository;
 
 struct EvaluationResult {
     bool allowed;

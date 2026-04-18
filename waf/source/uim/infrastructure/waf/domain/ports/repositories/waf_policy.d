@@ -1,6 +1,6 @@
 module uim.infrastructure.waf.domain.ports.repositories.waf_policy;
 
-import waf_service.domain.entities.waf_policy : WafPolicy;
+import uim.infrastructure.waf.domain.entities.waf_policy : WafPolicy;
 
 interface IWafPolicyRepository {
     void save(in WafPolicy policy);

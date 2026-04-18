@@ -1,8 +1,8 @@
 module uim.infrastructure.waf.infrastructure.persistence.memory.event_repository;
 
 import core.sync.mutex : Mutex;
-import waf_service.domain.entities.waf_event : WafEvent;
-import waf_service.domain.ports.repositories.waf_event : IWafEventRepository;
+import uim.infrastructure.waf.domain.entities.waf_event : WafEvent;
+import uim.infrastructure.waf.domain.ports.repositories.waf_event : IWafEventRepository;
 
 class InMemoryEventRepository : IWafEventRepository {
     private WafEvent[] events;
@@ -48,7 +48,7 @@ class InMemoryEventRepository : IWafEventRepository {
 }
 
 unittest {
-    import waf_service.domain.entities.waf_rule : RuleAction;
+    import uim.infrastructure.waf.domain.entities.waf_rule : RuleAction;
 
     auto repo = new InMemoryEventRepository();
     auto event = WafEvent("e1", "r1", "test", "192.168.1.1", "GET", "/test", RuleAction.BLOCK, "pattern", "detail", "2026-04-18T00:00:00Z");

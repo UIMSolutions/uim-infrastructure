@@ -1,8 +1,8 @@
 module uim.infrastructure.waf.infrastructure.persistence.memory.rule_repository;
 
 import core.sync.mutex : Mutex;
-import waf_service.domain.entities.waf_rule : WafRule;
-import waf_service.domain.ports.repositories.waf_rule : IWafRuleRepository;
+import uim.infrastructure.waf.domain.entities.waf_rule : WafRule;
+import uim.infrastructure.waf.domain.ports.repositories.waf_rule : IWafRuleRepository;
 
 class InMemoryRuleRepository : IWafRuleRepository {
     private WafRule[] rules;
@@ -64,7 +64,7 @@ class InMemoryRuleRepository : IWafRuleRepository {
 }
 
 unittest {
-    import waf_service.domain.entities.waf_rule : RuleAction, RuleType;
+    import uim.infrastructure.waf.domain.entities.waf_rule : RuleAction, RuleType;
 
     auto repo = new InMemoryRuleRepository();
     auto rule = WafRule("r1", "Block SQLi", `union\s+select`, RuleAction.BLOCK, RuleType.SQL_INJECTION, 1, true, "test");

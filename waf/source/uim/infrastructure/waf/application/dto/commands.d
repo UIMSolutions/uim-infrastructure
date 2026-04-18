@@ -1,4 +1,4 @@
-module waf_service.application.dto.commands;
+module uim.infrastructure.waf.application.dto.commands;
 
 struct CreateRuleCommand {
     string name;

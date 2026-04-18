@@ -1,12 +1,12 @@
-module waf_service.application.use_cases.create_policy;
+module uim.infrastructure.waf.application.use_cases.create_policy;
 
 import std.conv : to;
 import std.digest : toHexString;
 import std.digest.sha : sha256Of;
 import std.datetime : Clock;
-import waf_service.application.dto.commands : CreatePolicyCommand;
-import waf_service.domain.entities.waf_policy : WafPolicy, parsePolicyMode;
-import waf_service.domain.ports.repositories.waf_policy : IWafPolicyRepository;
+import uim.infrastructure.waf.application.dto.commands : CreatePolicyCommand;
+import uim.infrastructure.waf.domain.entities.waf_policy : WafPolicy, parsePolicyMode;
+import uim.infrastructure.waf.domain.ports.repositories.waf_policy : IWafPolicyRepository;
 
 class CreatePolicyUseCase {
     private IWafPolicyRepository repository;

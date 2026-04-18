@@ -1,12 +1,12 @@
-module waf_service.application.use_cases.create_rule;
+module uim.infrastructure.waf.application.use_cases.create_rule;
 
 import std.conv : to;
 import std.digest : toHexString;
 import std.digest.sha : sha256Of;
 import std.datetime : Clock;
-import waf_service.application.dto.commands : CreateRuleCommand;
-import waf_service.domain.entities.waf_rule : WafRule, parseRuleType, parseRuleAction;
-import waf_service.domain.ports.repositories.waf_rule : IWafRuleRepository;
+import uim.infrastructure.waf.application.dto.commands : CreateRuleCommand;
+import uim.infrastructure.waf.domain.entities.waf_rule : WafRule, parseRuleType, parseRuleAction;
+import uim.infrastructure.waf.domain.ports.repositories.waf_rule : IWafRuleRepository;
 
 class CreateRuleUseCase {
     private IWafRuleRepository repository;
