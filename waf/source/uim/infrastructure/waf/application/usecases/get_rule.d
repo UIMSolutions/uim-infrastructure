@@ -1,4 +1,4 @@
-module uim.infrastructure.waf.application.use_cases.get_rule;
+module uim.infrastructure.waf.application.usecases.get_rule;
 
 import uim.infrastructure.waf.domain.entities.waf_rule : WafRule;
 import uim.infrastructure.waf.domain.ports.repositories.waf_rule : IWafRuleRepository;

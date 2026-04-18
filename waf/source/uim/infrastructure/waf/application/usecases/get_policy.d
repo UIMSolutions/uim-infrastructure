@@ -1,4 +1,4 @@
-module uim.infrastructure.waf.application.use_cases.get_policy;
+module uim.infrastructure.waf.application.usecases.get_policy;
 
 import uim.infrastructure.waf.domain.entities.waf_policy : WafPolicy;
 import uim.infrastructure.waf.domain.ports.repositories.waf_policy : IWafPolicyRepository;

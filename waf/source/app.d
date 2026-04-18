@@ -1,15 +1,15 @@
 module app;
 
-import uim.infrastructure.waf.application.use_cases.create_rule : CreateRuleUseCase;
-import uim.infrastructure.waf.application.use_cases.list_rules : ListRulesUseCase;
-import uim.infrastructure.waf.application.use_cases.get_rule : GetRuleUseCase;
-import uim.infrastructure.waf.application.use_cases.delete_rule : DeleteRuleUseCase;
-import uim.infrastructure.waf.application.use_cases.create_policy : CreatePolicyUseCase;
-import uim.infrastructure.waf.application.use_cases.list_policies : ListPoliciesUseCase;
-import uim.infrastructure.waf.application.use_cases.get_policy : GetPolicyUseCase;
-import uim.infrastructure.waf.application.use_cases.delete_policy : DeletePolicyUseCase;
-import uim.infrastructure.waf.application.use_cases.evaluate_request : EvaluateRequestUseCase;
-import uim.infrastructure.waf.application.use_cases.list_events : ListEventsUseCase;
+import uim.infrastructure.waf.application.usecases.create_rule : CreateRuleUseCase;
+import uim.infrastructure.waf.application.usecases.list_rules : ListRulesUseCase;
+import uim.infrastructure.waf.application.usecases.get_rule : GetRuleUseCase;
+import uim.infrastructure.waf.application.usecases.delete_rule : DeleteRuleUseCase;
+import uim.infrastructure.waf.application.usecases.create_policy : CreatePolicyUseCase;
+import uim.infrastructure.waf.application.usecases.list_policies : ListPoliciesUseCase;
+import uim.infrastructure.waf.application.usecases.get_policy : GetPolicyUseCase;
+import uim.infrastructure.waf.application.usecases.delete_policy : DeletePolicyUseCase;
+import uim.infrastructure.waf.application.usecases.evaluate_request : EvaluateRequestUseCase;
+import uim.infrastructure.waf.application.usecases.list_events : ListEventsUseCase;
 import uim.infrastructure.waf.infrastructure.http.waf_controller : WafController;
 import uim.infrastructure.waf.infrastructure.persistence.in_memory_rule_repository : InMemoryRuleRepository;
 import uim.infrastructure.waf.infrastructure.persistence.in_memory_policy_repository : InMemoryPolicyRepository;

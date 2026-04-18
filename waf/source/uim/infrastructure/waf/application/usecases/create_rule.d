@@ -1,4 +1,4 @@
-module uim.infrastructure.waf.application.use_cases.create_rule;
+module uim.infrastructure.waf.application.usecases.create_rule;
 
 import std.conv : to;
 import std.digest : toHexString;

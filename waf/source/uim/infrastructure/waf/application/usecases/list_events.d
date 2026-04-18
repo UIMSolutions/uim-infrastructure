@@ -1,4 +1,4 @@
-module uim.infrastructure.waf.application.use_cases.list_events;
+module uim.infrastructure.waf.application.usecases.list_events;
 
 import uim.infrastructure.waf.domain.entities.waf_event : WafEvent;
 import uim.infrastructure.waf.domain.ports.repositories.waf_event : IWafEventRepository;

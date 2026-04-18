@@ -1,4 +1,4 @@
-module uim.infrastructure.waf.application.use_cases.delete_rule;
+module uim.infrastructure.waf.application.usecases.delete_rule;
 
 import uim.infrastructure.waf.domain.ports.repositories.waf_rule : IWafRuleRepository;
 

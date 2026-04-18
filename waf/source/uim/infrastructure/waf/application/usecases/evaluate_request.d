@@ -1,4 +1,4 @@
-module uim.infrastructure.waf.application.use_cases.evaluate_request;
+module uim.infrastructure.waf.application.usecases.evaluate_request;
 
 import std.conv : to;
 import std.datetime : Clock;
