@@ -14,13 +14,14 @@ class InMemoryPolicyRepository : IWafPolicyRepository {
 
     override void save(in WafPolicy policy) {
         synchronized (mutex) {
+            auto copy = WafPolicy(policy.id, policy.name, policy.ruleIds.dup, policy.mode, policy.description);
             foreach (i, ref existing; policies) {
                 if (existing.id == policy.id) {
-                    policies[i] = policy;
+                    policies[i] = copy;
                     return;
                 }
             }
-            policies ~= policy;
+            policies ~= copy;
         }
     }
 
