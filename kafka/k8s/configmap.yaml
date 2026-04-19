@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: uim-kafka-config
+  namespace: uim-kafka
+data:
+  SERVICE_NAME: "uim-kafka-service"
+  SERVICE_PORT: "8080"
+  LOG_LEVEL: "info"
+  DEFAULT_NUM_PARTITIONS: "3"
+  DEFAULT_REPLICATION_FACTOR: "1"
+  DEFAULT_RETENTION_MS: "604800000"

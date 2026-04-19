@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: uim-kafka
+  labels:
+    app: uim-kafka-service
+    part-of: uim-infrastructure
