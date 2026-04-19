@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uim-odata-service
+  namespace: uim-odata
+  labels:
+    app: uim-odata-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: uim-odata-service
+  template:
+    metadata:
+      labels:
+        app: uim-odata-service
+    spec:
+      containers:
+        - name: uim-odata-service
+          image: uim-odata-service:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: uim-odata-config
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi

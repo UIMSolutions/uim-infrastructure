@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: uim-odata
+  labels:
+    app: uim-odata-service
+    part-of: uim-infrastructure

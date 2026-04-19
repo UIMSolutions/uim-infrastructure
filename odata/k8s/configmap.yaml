@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: uim-odata-config
+  namespace: uim-odata
+data:
+  SERVICE_NAME: "uim-odata-service"
+  SERVICE_PORT: "8080"
+  LOG_LEVEL: "info"
+  ODATA_VERSION: "4.0"
+  SERVICE_ROOT: "/odata/"
