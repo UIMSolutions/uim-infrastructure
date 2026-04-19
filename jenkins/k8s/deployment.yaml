@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uim-jenkins-service
+  namespace: uim-jenkins
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: uim-jenkins-service
+  template:
+    metadata:
+      labels:
+        app: uim-jenkins-service
+    spec:
+      containers:
+      - name: jenkins
+        image: uim-jenkins-service:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: jenkins-service-config
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
