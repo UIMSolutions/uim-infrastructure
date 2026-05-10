@@ -1,7 +1,7 @@
 module uim.infrastructure.metrics.domain.ports.repositories.metrics;
 
-import metrics_service.domain.entities.metric : Metric;
-import metrics_service.domain.entities.metric_data_point : MetricDataPoint;
+import uim.infrastructure.metrics.domain.entities.metric : Metric;
+import uim.infrastructure.metrics.domain.entities.metric_data_point : MetricDataPoint;
 
 /// Hexagonal port: driven-side contract for metrics persistence.
 interface IMetricsRepository {

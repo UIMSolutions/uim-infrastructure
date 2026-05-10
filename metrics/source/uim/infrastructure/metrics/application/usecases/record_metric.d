@@ -1,9 +1,9 @@
 module uim.infrastructure.metrics.application.usecases.record_metric;
 
-import metrics_service.application.dto.metric_commands : RecordMetricCommand;
-import metrics_service.domain.entities.metric : Metric, parseMetricType, parseMetricUnit;
-import metrics_service.domain.entities.metric_data_point : MetricDataPoint;
-import metrics_service.domain.ports.repositories.metrics : IMetricsRepository;
+import uim.infrastructure.metrics.application.dto.metric_commands : RecordMetricCommand;
+import uim.infrastructure.metrics.domain.entities.metric : Metric, parseMetricType, parseMetricUnit;
+import uim.infrastructure.metrics.domain.entities.metric_data_point : MetricDataPoint;
+import uim.infrastructure.metrics.domain.ports.repositories.metrics : IMetricsRepository;
 import std.datetime.systime : Clock;
 import std.uuid : randomUUID;
 
@@ -56,7 +56,7 @@ class RecordMetricUseCase {
 }
 
 unittest {
-    import metrics_service.infrastructure.persistence.memory.metrics_repository : InMemoryMetricsRepository;
+    import uim.infrastructure.metrics.infrastructure.persistence.memory.metrics_repository : InMemoryMetricsRepository;
 
     auto repo = new InMemoryMetricsRepository();
     auto useCase = new RecordMetricUseCase(repo);

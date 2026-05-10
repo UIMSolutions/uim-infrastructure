@@ -1,11 +1,11 @@
 module app;
 
-import metrics_service.application.usecases.get_metric_series : GetMetricSeriesUseCase;
-import metrics_service.application.usecases.list_metrics : ListMetricsUseCase;
-import metrics_service.application.usecases.query_resource_metrics : QueryResourceMetricsUseCase;
-import metrics_service.application.usecases.record_metric : RecordMetricUseCase;
-import metrics_service.infrastructure.http.controllers.metrics : MetricsController;
-import metrics_service.infrastructure.persistence.memory.metrics_repository : InMemoryMetricsRepository;
+import uim.infrastructure.metrics.application.usecases.get_metric_series : GetMetricSeriesUseCase;
+import uim.infrastructure.metrics.application.usecases.list_metrics : ListMetricsUseCase;
+import uim.infrastructure.metrics.application.usecases.query_resource_metrics : QueryResourceMetricsUseCase;
+import uim.infrastructure.metrics.application.usecases.record_metric : RecordMetricUseCase;
+import uim.infrastructure.metrics.infrastructure.http.controllers.metrics : MetricsController;
+import uim.infrastructure.metrics.infrastructure.persistence.memory.metrics_repository : InMemoryMetricsRepository;
 import std.conv : to;
 import std.exception : collectException;
 import std.string : fromStringz;

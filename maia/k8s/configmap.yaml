@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: maia-service-config
+  namespace: uim-maia
+data:
+  PORT: "8080"
+  BIND_ADDRESS: "0.0.0.0"
+  MAIA_DEBUG_TOKEN: "debug-token"
