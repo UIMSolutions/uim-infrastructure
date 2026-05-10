@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: uim-barbican-service
+  namespace: uim-barbican
+spec:
+  selector:
+    app: uim-barbican-service
+  ports:
+  - name: http
+    protocol: TCP
+    port: 9311
+    targetPort: 9311
+  type: ClusterIP
