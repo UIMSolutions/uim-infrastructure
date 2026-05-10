@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: uim-odata-service
-  namespace: uim-odata
+  name: uim-ui5-server-service
+  namespace: uim-ui5-server
   labels:
-    app: uim-odata-service
+    app: uim-ui5-server-service
 spec:
   type: ClusterIP
   selector:
-    app: uim-odata-service
+    app: uim-ui5-server-service
   ports:
   - name: http
     port: 80

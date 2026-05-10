@@ -1,29 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: uim-odata-service
-  namespace: uim-odata
+  name: uim-ui5-server-service
+  namespace: uim-ui5-server
   labels:
-    app: uim-odata-service
+    app: uim-ui5-server-service
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: uim-odata-service
+      app: uim-ui5-server-service
   template:
     metadata:
       labels:
-        app: uim-odata-service
+        app: uim-ui5-server-service
     spec:
       containers:
-      - name: uim-odata-service
-        image: uim-odata-service:latest
+      - name: uim-ui5-server-service
+        image: uim-ui5-server-service:latest
         ports:
         - containerPort: 8080
           protocol: TCP
         envFrom:
         - configMapRef:
-            name: uim-odata-config
+            name: uim-ui5-server-config
         livenessProbe:
           httpGet:
             path: /health

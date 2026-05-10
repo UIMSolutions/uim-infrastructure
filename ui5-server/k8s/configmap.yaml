@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: uim-ui5-server-config
+  namespace: uim-ui5-server
+data:
+  SERVICE_NAME: "uim-ui5-server-service"
+  SERVICE_PORT: "8080"
+  LOG_LEVEL: "info"
+  DEFAULT_PROTOCOL: "http"
+  ACCEPT_REMOTE_CONNECTIONS: "false"
+  SIMPLE_INDEX: "false"
+  SERVE_CSP_REPORTS: "true"
