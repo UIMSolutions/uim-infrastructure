@@ -391,7 +391,7 @@ class BarbicanController {
     private string jsonString(Json json, string key) {
         if (json.type != Json.Type.object) return "";
         auto v = json[key];
-        if (v.type == Json.Type.string_) return v.get!string;
+        if (v.type == Json.Type.string) return v.get!string;
         return "";
     }
 
