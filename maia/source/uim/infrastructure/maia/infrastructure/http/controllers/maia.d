@@ -154,8 +154,8 @@ class MaiaController {
 
         try {
             string[] matchers;
-            foreach (k, v; req.query) {
-                if (k == "match[]") matchers ~= v;
+            foreach (kv; req.query.byKeyValue()) {
+                if (kv.key == "match[]") matchers ~= kv.value;
             }
 
             long startMs, endMs;
@@ -237,8 +237,8 @@ class MaiaController {
 
         try {
             string[] matchers;
-            foreach (k, v; req.query) {
-                if (k == "match[]") matchers ~= v;
+            foreach (kv; req.query.byKeyValue()) {
+                if (kv.key == "match[]") matchers ~= kv.value;
             }
 
             import uim.infrastructure.maia.domain.entities.label_matcher : parseSelector;

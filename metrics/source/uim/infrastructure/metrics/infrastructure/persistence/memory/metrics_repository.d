@@ -13,7 +13,8 @@ class InMemoryMetricsRepository : IMetricsRepository {
     this() { mutex = new Mutex; }
 
     override void saveMetric(in Metric metric) {
-        synchronized (mutex) { metrics ~= metric; }
+        Metric m = metric;
+        synchronized (mutex) { metrics ~= m; }
     }
 
     override Metric[] listMetrics() {
@@ -30,7 +31,10 @@ class InMemoryMetricsRepository : IMetricsRepository {
     }
 
     override void saveDataPoint(in MetricDataPoint point) {
-        synchronized (mutex) { dataPoints ~= point; }
+        string[string] lbls;
+        foreach (k, v; point.labels) lbls[k] = v;
+        auto p = MetricDataPoint(point.id, point.metricId, point.metricName, point.resourceId, point.value, point.timestamp, lbls);
+        synchronized (mutex) { dataPoints ~= p; }
     }
 
     override MetricDataPoint[] getSeriesByName(string name) {
