@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keppel-service-config
+  namespace: uim-keppel
+data:
+  PORT: "9312"
+  BIND_ADDRESS: "0.0.0.0"
+  PERSISTENCE_BACKEND: "file"
+  CATALOG_DB_FILE: "/data/catalog.json"

@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uim-archer-service
+  namespace: uim-archer
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: uim-archer-service
+  template:
+    metadata:
+      labels:
+        app: uim-archer-service
+    spec:
+      containers:
+      - name: archer
+        image: uim-archer-service:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9312
+        envFrom:
+        - configMapRef:
+            name: archer-service-config
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 9312
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 9312
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"

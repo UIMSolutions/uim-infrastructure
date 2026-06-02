@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: uim-keppel-service
+  namespace: uim-keppel
+spec:
+  selector:
+    app: uim-keppel-service
+  ports:
+  - name: http
+    protocol: TCP
+    port: 9312
+    targetPort: 9312
+  type: ClusterIP

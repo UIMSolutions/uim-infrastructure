@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="keppel-oci-smoke" tests="9" failures="0">
+<testcase name="health"/><testcase name="create repository"/><testcase name="put manifest"/><testcase name="get manifest"/><testcase name="put blob"/><testcase name="get blob"/><testcase name="tags list"/><testcase name="catalog"/><testcase name="v1 repository read"/>
+</testsuite>

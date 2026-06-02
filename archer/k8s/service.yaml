@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: uim-archer-service
+  namespace: uim-archer
+spec:
+  selector:
+    app: uim-archer-service
+  ports:
+  - name: http
+    port: 9312
+    targetPort: 9312
+  type: ClusterIP
