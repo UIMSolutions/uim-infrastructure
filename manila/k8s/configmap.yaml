@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: manila-service-config
+  namespace: uim-manila
+data:
+  PORT: "8080"
+  BIND_ADDRESS: "0.0.0.0"
+  STORAGE_BACKEND: "memory"
+  POSTGRES_DSN: "postgresql://postgres:postgres@postgresql.default.svc.cluster.local:5432/manila"
+  MANILA_MICROVERSION_MIN: "2.1"
+  MANILA_MICROVERSION_MAX: "2.93"
+  MANILA_MICROVERSION_DEFAULT: "2.93"
+  KEYSTONE_URL: ""
+  KEYSTONE_ADMIN_TOKEN: ""
+  KEYSTONE_TOKEN_MAP: "dev-admin=admin-project:user-admin:admin|member"
+  ALLOW_INSECURE_TOKENS: "false"

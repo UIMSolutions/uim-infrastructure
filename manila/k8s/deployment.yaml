@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uim-manila-service
+  namespace: uim-manila
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: uim-manila-service
+  template:
+    metadata:
+      labels:
+        app: uim-manila-service
+    spec:
+      containers:
+      - name: manila
+        image: uim-manila-service:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: manila-service-config
+        env:
+        - name: STORAGE_BACKEND
+          valueFrom:
+            configMapKeyRef:
+              name: manila-service-config
+              key: STORAGE_BACKEND
+        - name: POSTGRES_DSN
+          valueFrom:
+            configMapKeyRef:
+              name: manila-service-config
+              key: POSTGRES_DSN
+        - name: KEYSTONE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: manila-service-config
+              key: KEYSTONE_URL
+        - name: KEYSTONE_ADMIN_TOKEN
+          valueFrom:
+            configMapKeyRef:
+              name: manila-service-config
+              key: KEYSTONE_ADMIN_TOKEN
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
