@@ -23,7 +23,7 @@ class PostgreSqlSqlRunner {
             "-c", sql
         ]);
         if (result.status != 0) {
-            throw new Exception("postgres query failed: " ~ result.errorOutput);
+            throw new Exception("postgres query failed: " ~ result.output);
         }
     }
 
@@ -37,7 +37,7 @@ class PostgreSqlSqlRunner {
             "-c", sql
         ]);
         if (result.status != 0) {
-            throw new Exception("postgres query failed: " ~ result.errorOutput);
+            throw new Exception("postgres query failed: " ~ result.output);
         }
 
         string[][] rows;

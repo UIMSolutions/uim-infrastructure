@@ -171,12 +171,13 @@ class ManilaController {
         }
 
         auto requestedProjectId = readQueryValue(req, "project_id");
-        auto effectiveProjectId = enforceProjectFilter(auth, requestedProjectId, res);
-        if (effectiveProjectId is null) {
+        bool allowed;
+        auto effectiveProjectId = enforceProjectFilter(auth, requestedProjectId, res, allowed);
+        if (!allowed) {
             return;
         }
 
-        auto shares = listSharesUseCase.execute(*effectiveProjectId);
+        auto shares = listSharesUseCase.execute(effectiveProjectId);
         writeJson(res, serializeToJsonString(SharesEnvelope(sharesToViews(shares), [])), HTTPStatus.ok);
     }
 
@@ -277,12 +278,13 @@ class ManilaController {
         }
 
         auto requestedProjectId = readQueryValue(req, "project_id");
-        auto effectiveProjectId = enforceProjectFilter(auth, requestedProjectId, res);
-        if (effectiveProjectId is null) {
+        bool allowed;
+        auto effectiveProjectId = enforceProjectFilter(auth, requestedProjectId, res, allowed);
+        if (!allowed) {
             return;
         }
 
-        auto snapshots = listSnapshotsUseCase.execute(*effectiveProjectId);
+        auto snapshots = listSnapshotsUseCase.execute(effectiveProjectId);
         writeJson(res, serializeToJsonString(SnapshotsEnvelope(snapshotsToViews(snapshots), [])), HTTPStatus.ok);
     }
 
@@ -402,59 +404,62 @@ class ManilaController {
     }
 
     private bool isVersionInRange(string candidate, string minVersion, string maxVersion) {
-        auto parsedCandidate = parseVersion(candidate);
-        auto parsedMin = parseVersion(minVersion);
-        auto parsedMax = parseVersion(maxVersion);
-        if (parsedCandidate is null || parsedMin is null || parsedMax is null) {
+        int cMajor;
+        int cMinor;
+        int minMajor;
+        int minMinor;
+        int maxMajor;
+        int maxMinor;
+        if (!parseVersion(candidate, cMajor, cMinor) || !parseVersion(minVersion, minMajor, minMinor) || !parseVersion(maxVersion, maxMajor, maxMinor)) {
             return false;
         }
 
-        return compareVersion(*parsedCandidate, *parsedMin) >= 0 && compareVersion(*parsedCandidate, *parsedMax) <= 0;
+        return compareVersion(cMajor, cMinor, minMajor, minMinor) >= 0 && compareVersion(cMajor, cMinor, maxMajor, maxMinor) <= 0;
     }
 
-    private int compareVersion(int[2] left, int[2] right) {
-        if (left[0] < right[0]) return -1;
-        if (left[0] > right[0]) return 1;
-        if (left[1] < right[1]) return -1;
-        if (left[1] > right[1]) return 1;
+    private int compareVersion(int leftMajor, int leftMinor, int rightMajor, int rightMinor) {
+        if (leftMajor < rightMajor) return -1;
+        if (leftMajor > rightMajor) return 1;
+        if (leftMinor < rightMinor) return -1;
+        if (leftMinor > rightMinor) return 1;
         return 0;
     }
 
-    private int[2]* parseVersion(string value) {
+    private bool parseVersion(string value, out int major, out int minor) {
         auto parts = split(value, ".");
         if (parts.length != 2) {
-            return null;
+            return false;
         }
 
-        int major;
-        int minor;
         auto err = collectException({
             major = parts[0].to!int;
             minor = parts[1].to!int;
         });
         if (err !is null || major < 0 || minor < 0) {
-            return null;
+            return false;
         }
 
-        auto parsed = new int[2];
-        (*parsed)[0] = major;
-        (*parsed)[1] = minor;
-        return parsed;
+        return true;
     }
 
-    private string* enforceProjectFilter(TokenContext* auth, string requestedProjectId, HTTPServerResponse res) {
+    private string enforceProjectFilter(TokenContext* auth, string requestedProjectId, HTTPServerResponse res, out bool allowed) {
         if (auth.isAdmin()) {
-            return new string(requestedProjectId);
+            allowed = true;
+            return requestedProjectId;
         }
 
         if (requestedProjectId.length == 0) {
-            return new string(auth.projectId);
+            allowed = true;
+            return auth.projectId;
         }
         if (requestedProjectId != auth.projectId) {
             writeError(res, HTTPStatus.forbidden, "policy does not allow project_id=" ~ requestedProjectId);
-            return null;
+            allowed = false;
+            return "";
         }
-        return new string(requestedProjectId);
+
+        allowed = true;
+        return requestedProjectId;
     }
 
     private bool allowProject(TokenContext* auth, string projectId) {

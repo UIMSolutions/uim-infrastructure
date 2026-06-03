@@ -5,7 +5,9 @@ import std.string : strip, toLower;
 import uim.infrastructure.manila.infrastructure.auth.token_validator : ITokenValidator, TokenContext;
 import vibe.data.json : Json, parseJsonString;
 import vibe.http.client : requestHTTP;
-import vibe.http.common : HTTPStatus;
+import vibe.http.common : HTTPStatus, HTTPMethod;
+import vibe.inet.url : URL;
+import vibe.stream.operations : readAllUTF8;
 
 /// Keystone-backed token validator with optional fallback validator.
 class KeystoneHttpTokenValidator : ITokenValidator {
@@ -37,9 +39,9 @@ class KeystoneHttpTokenValidator : ITokenValidator {
 
         auto err = collectException({
             requestHTTP(
-                keystoneUrl ~ "/v3/auth/tokens",
+                URL(keystoneUrl ~ "/v3/auth/tokens"),
                 (scope reqOut) {
-                    reqOut.method = "GET";
+                    reqOut.method = HTTPMethod.GET;
                     reqOut.headers["X-Auth-Token"] = adminToken;
                     reqOut.headers["X-Subject-Token"] = token;
                     reqOut.headers["Accept"] = "application/json";
