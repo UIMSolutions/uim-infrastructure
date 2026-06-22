@@ -18,26 +18,26 @@ class InMemoryMcpRegistry : IMcpRegistry {
         McpToolDefinition[] tools;
 
         tools ~= McpToolDefinition(
-            "echo",
-            "Echo Tool",
-            "Echoes the input message",
-            q{"type":"object","properties":{"message":{"type":"string","description":"Message to echo"}},"required":["message"]},
-            McpToolAnnotations(true, false, true, false)
-        );
-
-        tools ~= McpToolDefinition(
-            "get-sum",
-            "Get Sum Tool",
-            "Returns the sum of two numbers",
-            q{"type":"object","properties":{"a":{"type":"number"},"b":{"type":"number"}},"required":["a","b"]},
-            McpToolAnnotations(true, false, true, false)
-        );
-
-        tools ~= McpToolDefinition(
-            "get-env",
-            "Print Environment Tool",
-            "Returns process environment variables",
+            "leanix-overview",
+            "LeanIX Overview Tool",
+            "Returns a concise SAP LeanIX enterprise architecture overview",
             q{"type":"object","properties":{}},
+            McpToolAnnotations(true, false, true, false)
+        );
+
+        tools ~= McpToolDefinition(
+            "leanix-fact-sheet-template",
+            "LeanIX Fact Sheet Template Tool",
+            "Builds a starter fact sheet payload aligned with SAP LeanIX key concepts",
+            q{"type":"object","properties":{"factSheetType":{"type":"string","description":"Fact sheet type such as Application, BusinessCapability, ITComponent"},"name":{"type":"string","description":"Fact sheet display name"},"owner":{"type":"string","description":"Responsible owner"},"lifecycle":{"type":"string","description":"Lifecycle stage"}},"required":["factSheetType","name"]},
+            McpToolAnnotations(true, false, true, false)
+        );
+
+        tools ~= McpToolDefinition(
+            "leanix-roadmap-checklist",
+            "LeanIX Roadmap Checklist Tool",
+            "Returns an enterprise architecture roadmap checklist based on SAP LeanIX getting-started guidance",
+            q{"type":"object","properties":{"transformationGoal":{"type":"string","description":"Transformation objective"},"timeHorizon":{"type":"string","description":"Planning horizon such as 12m or 24m"}},"required":["transformationGoal"]},
             McpToolAnnotations(true, false, true, false)
         );
 
@@ -45,32 +45,61 @@ class InMemoryMcpRegistry : IMcpRegistry {
     }
 
     override McpToolCallResult callTool(string name, Json arguments) {
-        if (name == "echo") {
-            auto msg = arguments["message"].type == Json.Type.string
-                ? arguments["message"].get!string
+        if (name == "leanix-overview") {
+            auto text = "SAP LeanIX provides a 360 degree view of applications, business capabilities, and IT components to align IT strategy with business goals and support transformation planning.";
+            return McpToolCallResult(
+                false,
+                text,
+                q{{"focus":["application portfolio","business capabilities","it components"],"outcomes":["alignment","risk visibility","roadmap planning"]}}
+            );
+        }
+
+        if (name == "leanix-fact-sheet-template") {
+            auto factSheetType = arguments["factSheetType"].type == Json.Type.string
+                ? arguments["factSheetType"].get!string
                 : "";
-            if (msg.length == 0) {
-                return McpToolCallResult(true, "message is required", "");
-            }
-            return McpToolCallResult(false, "Echo: " ~ msg, q{{"message": "} ~ escapeJson(msg) ~ q{"}});
-        }
+            auto nameValue = arguments["name"].type == Json.Type.string
+                ? arguments["name"].get!string
+                : "";
 
-        if (name == "get-sum") {
-            bool okA;
-            bool okB;
-            auto a = parseNumber(arguments["a"], okA);
-            auto b = parseNumber(arguments["b"], okB);
-            if (!okA || !okB) {
-                return McpToolCallResult(true, "a and b must be numeric", "");
+            if (factSheetType.length == 0 || nameValue.length == 0) {
+                return McpToolCallResult(true, "factSheetType and name are required", "");
             }
 
-            auto sum = a + b;
-            auto text = "The sum of " ~ a.to!string ~ " and " ~ b.to!string ~ " is " ~ sum.to!string ~ ".";
-            return McpToolCallResult(false, text, "{\"sum\": " ~ sum.to!string ~ "}");
+            auto owner = arguments["owner"].type == Json.Type.string
+                ? arguments["owner"].get!string
+                : "unassigned";
+            auto lifecycle = arguments["lifecycle"].type == Json.Type.string
+                ? arguments["lifecycle"].get!string
+                : "planned";
+
+            auto text = "Generated LeanIX fact sheet template for " ~ factSheetType ~ " named " ~ nameValue ~ ".";
+            auto payload =
+                q{{"factSheet":{"type":"} ~ escapeJson(factSheetType) ~
+                q{","name":"} ~ escapeJson(nameValue) ~
+                q{","owner":"} ~ escapeJson(owner) ~
+                q{","lifecycle":"} ~ escapeJson(lifecycle) ~
+                q{","attributes":{"technicalFit":"unknown","functionalFit":"unknown"}}}};
+            return McpToolCallResult(false, text, payload);
         }
 
-        if (name == "get-env") {
-            return McpToolCallResult(false, "Environment details are intentionally redacted in this demo server.", "{}");
+        if (name == "leanix-roadmap-checklist") {
+            auto goal = arguments["transformationGoal"].type == Json.Type.string
+                ? arguments["transformationGoal"].get!string
+                : "";
+            if (goal.length == 0) {
+                return McpToolCallResult(true, "transformationGoal is required", "");
+            }
+
+            auto horizon = arguments["timeHorizon"].type == Json.Type.string
+                ? arguments["timeHorizon"].get!string
+                : "12m";
+
+            auto text = "Prepared LeanIX roadmap checklist for goal: " ~ goal ~ ".";
+            auto payload =
+                q{{"timeHorizon":"} ~ escapeJson(horizon) ~
+                q{","steps":["define target architecture","map dependencies in meta model","prioritize applications by fit and risk","assign owners and collaboration workflows","track progress with reports and diagrams"]}};
+            return McpToolCallResult(false, text, payload);
         }
 
         return McpToolCallResult(true, "unknown tool: " ~ name, "");
@@ -79,15 +108,21 @@ class InMemoryMcpRegistry : IMcpRegistry {
     override McpResourceDefinition[] listResources() {
         McpResourceDefinition[] resources;
         resources ~= McpResourceDefinition(
-            "mcp://server/instructions",
-            "server-instructions",
-            "High-level instructions for this MCP demo service",
+            "mcp://leanix/introduction",
+            "leanix-introduction",
+            "Introduction summary for SAP LeanIX enterprise architecture management",
             "text/plain"
         );
         resources ~= McpResourceDefinition(
-            "mcp://server/features",
-            "server-features",
-            "Capabilities and primitive list inspired by MCP reference servers",
+            "mcp://leanix/key-concepts",
+            "leanix-key-concepts",
+            "Fact sheets, meta model, collaboration, and reporting concepts",
+            "application/json"
+        );
+        resources ~= McpResourceDefinition(
+            "mcp://leanix/products",
+            "leanix-products",
+            "LeanIX product scope including APM, architecture roadmap planning, and technology risk/compliance",
             "application/json"
         );
         return resources;
@@ -96,56 +131,24 @@ class InMemoryMcpRegistry : IMcpRegistry {
     override McpPromptDefinition[] listPrompts() {
         McpPromptDefinition[] prompts;
 
-        McpPromptArgument[] summarizeArgs;
-        summarizeArgs ~= McpPromptArgument("topic", "Topic to summarize", true);
+        McpPromptArgument[] bootstrapArgs;
+        bootstrapArgs ~= McpPromptArgument("organizationName", "Organization name", true);
+        bootstrapArgs ~= McpPromptArgument("scope", "Initial architecture scope", true);
         prompts ~= McpPromptDefinition(
-            "summarize-topic",
-            "Summarize a provided topic into concise bullets",
-            summarizeArgs
+            "leanix-workspace-bootstrap",
+            "Create an initial SAP LeanIX workspace onboarding plan",
+            bootstrapArgs
         );
 
-        McpPromptArgument[] checklistArgs;
-        checklistArgs ~= McpPromptArgument("goal", "Goal for implementation checklist", true);
+        McpPromptArgument[] collaborationArgs;
+        collaborationArgs ~= McpPromptArgument("domain", "Architecture domain to govern", true);
         prompts ~= McpPromptDefinition(
-            "implementation-checklist",
-            "Generate a practical implementation checklist",
-            checklistArgs
+            "leanix-collaboration-cadence",
+            "Generate a collaboration cadence using surveys, subscriptions, comments, and to-dos",
+            collaborationArgs
         );
 
         return prompts;
-    }
-
-    private double parseNumber(Json input, out bool ok) {
-        ok = true;
-        final switch (input.type) {
-            case Json.Type.float_:
-                return input.get!double;
-            case Json.Type.int_:
-                return cast(double) input.get!long;
-            case Json.Type.bigInt:
-                double parsedBigInt;
-                auto errBigInt = collectException(parsedBigInt = input.get!string.to!double);
-                if (errBigInt is null) {
-                    return parsedBigInt;
-                }
-                ok = false;
-                return 0.0;
-            case Json.Type.string:
-                double parsedString;
-                auto errString = collectException(parsedString = input.get!string.to!double);
-                if (errString is null) {
-                    return parsedString;
-                }
-                ok = false;
-                return 0.0;
-            case Json.Type.undefined:
-            case Json.Type.null_:
-            case Json.Type.bool_:
-            case Json.Type.array:
-            case Json.Type.object:
-                ok = false;
-                return 0.0;
-        }
     }
 
     private string escapeJson(string value) {

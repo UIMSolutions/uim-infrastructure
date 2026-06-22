@@ -2,7 +2,10 @@
 
 A Model Context Protocol (MCP) inspired microservice built with D and vibe.d, structured around a combination of Clean Architecture and Hexagonal Architecture.
 
-This service follows the MCP reference server ideas in https://github.com/modelcontextprotocol/servers: expose tools, resources, and prompts through a single protocol surface with clear capability metadata.
+This service is aligned with SAP LeanIX Getting Started guidance:
+https://help.sap.com/docs/leanix/ea/getting-started?hsCtaAttrib=194319802689&locale=en-US
+
+The implementation exposes MCP-style tools, resources, and prompts around LeanIX concepts such as fact sheets, meta model, collaboration workflows, and roadmap planning.
 
 ## Architecture
 
@@ -45,6 +48,23 @@ Supported methods:
 - `resources/list`
 - `prompts/list`
 
+### Included LeanIX-oriented tools
+
+- `leanix-overview`
+- `leanix-fact-sheet-template`
+- `leanix-roadmap-checklist`
+
+### Included resources
+
+- `mcp://leanix/introduction`
+- `mcp://leanix/key-concepts`
+- `mcp://leanix/products`
+
+### Included prompts
+
+- `leanix-workspace-bootstrap`
+- `leanix-collaboration-cadence`
+
 Example request:
 
 ```json
@@ -53,10 +73,12 @@ Example request:
   "id": 1,
   "method": "tools/call",
   "params": {
-    "name": "get-sum",
+    "name": "leanix-fact-sheet-template",
     "arguments": {
-      "a": 5,
-      "b": 7
+      "factSheetType": "Application",
+      "name": "Order Management",
+      "owner": "enterprise.architecture@example.com",
+      "lifecycle": "active"
     }
   }
 }
