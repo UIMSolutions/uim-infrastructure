@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cinder-service-config
+  namespace: uim-cinder
+data:
+  PORT: "8080"
+  BIND_ADDRESS: "0.0.0.0"
+  CINDER_MICROVERSION_DEFAULT: "3.70"
+  CINDER_MICROVERSION_MIN: "3.0"
+  CINDER_MICROVERSION_MAX: "3.70"

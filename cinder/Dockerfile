@@ -1,0 +1,16 @@
+FROM docker.io/dlanguage/dmd:2.111.0
+
+WORKDIR /app
+COPY . .
+
+RUN dub build --build=release
+
+ENV PORT=8080
+ENV BIND_ADDRESS=0.0.0.0
+ENV CINDER_MICROVERSION_DEFAULT=3.70
+ENV CINDER_MICROVERSION_MIN=3.0
+ENV CINDER_MICROVERSION_MAX=3.70
+
+EXPOSE 8080
+
+CMD ["./uim-cinder-service"]
