@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: terraform-service-config
+  namespace: uim-terraform
+data:
+  PORT: "8080"
+  BIND_ADDRESS: "0.0.0.0"
+  TERRAFORM_BINARY: "terraform"
+  TERRAFORM_DEFAULT_MODULE_PATH: "/app/modules/example"
+  TERRAFORM_AUTO_APPROVE: "true"

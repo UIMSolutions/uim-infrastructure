@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mcp-service-config
+  namespace: uim-mcp
+data:
+  PORT: "8080"
+  BIND_ADDRESS: "0.0.0.0"
+  MCP_SERVER_NAME: "uim-mcp-service"
+  MCP_SERVER_VERSION: "0.1.0"
