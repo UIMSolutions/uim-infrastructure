@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: scim-service-config
+  namespace: uim-scim
+data:
+  PORT: "8080"
+  BIND_ADDRESS: "0.0.0.0"
+  SCIM_BASE_URL: "http://uim-scim-service.uim-scim.svc.cluster.local:8080/scim/v2"
+  STORAGE_BACKEND: "memory"
+  POSTGRES_DSN: "postgresql://postgres:postgres@postgres.uim-scim.svc.cluster.local:5432/scim"
+  SCIM_TOKEN_MAP: "dev-admin=admin:admin|member;dev-member=member:member"
+  ALLOW_INSECURE_TOKENS: "false"
+  SCIM_ALLOW_ANONYMOUS_DISCOVERY: "false"
