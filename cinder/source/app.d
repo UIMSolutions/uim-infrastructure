@@ -1,7 +1,5 @@
 module app;
 
-module app;
-
 import uim.infrastructure.cinder.application.usecases.attach_volume : AttachVolumeUseCase;
 import uim.infrastructure.cinder.application.usecases.create_snapshot : CreateSnapshotUseCase;
 import uim.infrastructure.cinder.application.usecases.create_volume : CreateVolumeUseCase;

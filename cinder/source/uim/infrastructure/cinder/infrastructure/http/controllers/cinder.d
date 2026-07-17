@@ -127,7 +127,7 @@ class CinderController {
         auto types = listVolumeTypesUseCase.execute();
         Json payload = Json.emptyObject;
         payload["volume_types"] = typesToJson(types);
-        payload["volume_types_links"] = Json([]);
+        payload["volume_types_links"] = Json(cast(Json[]) []);
         writeJson(res, payload, HTTPStatus.ok);
     }
 
@@ -156,7 +156,7 @@ class CinderController {
         auto volumes = listVolumesUseCase.execute(readQueryValue(req, "project_id"));
         Json payload = Json.emptyObject;
         payload["volumes"] = volumesToJson(volumes);
-        payload["volumes_links"] = Json([]);
+        payload["volumes_links"] = Json(cast(Json[]) []);
         writeJson(res, payload, HTTPStatus.ok);
     }
 
@@ -275,7 +275,7 @@ class CinderController {
         auto snapshots = listSnapshotsUseCase.execute(readQueryValue(req, "project_id"));
         Json payload = Json.emptyObject;
         payload["snapshots"] = snapshotsToJson(snapshots);
-        payload["snapshots_links"] = Json([]);
+        payload["snapshots_links"] = Json(cast(Json[]) []);
         writeJson(res, payload, HTTPStatus.ok);
     }
 
