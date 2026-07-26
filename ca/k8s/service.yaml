@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: uim-ca-service
+  namespace: uim-ca
+spec:
+  selector:
+    app: uim-ca-service
+  ports:
+  - name: http
+    protocol: TCP
+    port: 9321
+    targetPort: 9321
+  type: ClusterIP

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uim-gardener-service
+  namespace: gardener
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: uim-gardener-service
+  template:
+    metadata:
+      labels:
+        app: uim-gardener-service
+    spec:
+      containers:
+        - name: uim-gardener-service
+          image: ghcr.io/gardener/uim-gardener-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: uim-gardener-service-config

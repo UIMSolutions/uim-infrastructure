@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ca-service-config
+  namespace: uim-ca
+data:
+  PORT: "9321"
+  BIND_ADDRESS: "0.0.0.0"

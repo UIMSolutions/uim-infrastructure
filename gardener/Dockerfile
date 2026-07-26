@@ -1,0 +1,20 @@
+FROM dlanguage/dmd:2.111.0 AS builder
+
+WORKDIR /app
+COPY . .
+
+RUN dub build --build=release
+
+FROM debian:bookworm-slim
+
+RUN apt-get update && apt-get install -y libphobos2-ldc-shared98 || true && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY --from=builder /app/uim-gardener-service .
+
+ENV PORT=8080
+ENV BIND_ADDRESS=0.0.0.0
+
+EXPOSE 8080
+
+CMD ["./uim-gardener-service"]

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: uim-gardener-service
+  namespace: gardener
+spec:
+  selector:
+    app: uim-gardener-service
+  ports:
+    - port: 8080
+      targetPort: 8080
