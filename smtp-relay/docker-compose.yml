@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  smtp-relay:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: uim-smtp-relay-service:dev
+    depends_on:
+      - mailhog
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: "8080"
+      BIND_ADDRESS: "0.0.0.0"
+      PID_FILE: "/tmp/uim-smtp-relay-service.pid"
+      SMTP_HOST: "mailhog"
+      SMTP_PORT: "1025"
+      SMTP_FROM: "noreply@uim.local"
+      SMTP_SECURITY: "plain"
+      SMTP_AUTH: "none"
+      MESSAGE_STORE_PATH: "/data/messages.json"
+    volumes:
+      - smtp-relay-data:/data
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+volumes:
+  smtp-relay-data:

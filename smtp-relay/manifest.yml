@@ -1,0 +1,19 @@
+---
+applications:
+- name: uim-smtp-relay-service
+  memory: 256M
+  instances: 1
+  buildpacks:
+  - binary_buildpack
+  command: ./uim-smtp-relay-service
+  env:
+    BIND_ADDRESS: 0.0.0.0
+    SMTP_HOST: mailhog
+    SMTP_PORT: "1025"
+    SMTP_FROM: noreply@uim.local
+    SMTP_SECURITY: plain
+    SMTP_AUTH: none
+    SMTP_USERNAME: ""
+    SMTP_PASSWORD: ""
+    STORE_BACKEND: file
+    MESSAGE_STORE_PATH: /tmp/uim-smtp-relay-messages.json
