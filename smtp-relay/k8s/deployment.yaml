@@ -4,7 +4,7 @@ metadata:
   name: uim-smtp-relay-service
   namespace: uim-smtp-relay
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: uim-smtp-relay-service
@@ -39,4 +39,5 @@ spec:
           periodSeconds: 20
       volumes:
       - name: smtp-relay-data
-        emptyDir: {}
+        persistentVolumeClaim:
+          claimName: smtp-relay-data-pvc

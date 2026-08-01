@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  acdoca:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: uim-acdoca-service:dev
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: "8080"
+      BIND_ADDRESS: "0.0.0.0"
+      PID_FILE: "/tmp/uim-acdoca-service.pid"
+      ACDOCA_DEFAULT_COMPANY_CODE: "1000"
+      STORAGE_BACKEND: "postgres"
+      POSTGRES_DSN: "postgresql://postgres:postgres@postgres:5432/acdoca"
+      AUTH_MODE: "none"
+      AUTH_REQUIRED_SCOPE: "acdoca.write"
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "acdoca"
+    ports:
+      - "5432:5432"
+    volumes:
+      - acdoca-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  acdoca-postgres-data:

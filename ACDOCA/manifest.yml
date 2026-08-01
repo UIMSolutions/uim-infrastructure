@@ -1,0 +1,12 @@
+---
+applications:
+- name: uim-acdoca-service
+  memory: 256M
+  instances: 1
+  buildpacks:
+  - binary_buildpack
+  command: ./uim-acdoca-service
+  env:
+    PORT: 8080
+    BIND_ADDRESS: 0.0.0.0
+    ACDOCA_DEFAULT_COMPANY_CODE: "1000"

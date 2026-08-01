@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openstack-config
+  namespace: uim-openstack
+data:
+  PORT: "8080"
+  BIND_ADDRESS: "0.0.0.0"
+  OPENSTACK_DEFAULT_REGION: "RegionOne"

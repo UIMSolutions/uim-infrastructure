@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sdk-ai-config
+  namespace: uim-sdk-ai
+data:
+  PORT: "8080"
+  BIND_ADDRESS: "0.0.0.0"
+  AI_PROVIDER: "sap-ai-core"
+  DEFAULT_TENANT_ID: "default"
+  AI_RESOURCE_GROUP: "default"
+  AI_DEPLOYMENT_ID: "default"

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cds-service-config
+  namespace: uim-cds
+data:
+  PORT: "8080"
+  BIND_ADDRESS: "0.0.0.0"
+  PID_FILE: "/tmp/uim-cds-service.pid"
+  CDS_DEFAULT_NAMESPACE: "uim.cds"

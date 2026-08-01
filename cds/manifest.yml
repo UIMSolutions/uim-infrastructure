@@ -1,0 +1,12 @@
+---
+applications:
+- name: uim-cds-service
+  memory: 256M
+  instances: 1
+  buildpacks:
+  - binary_buildpack
+  command: ./uim-cds-service
+  env:
+    PORT: 8080
+    BIND_ADDRESS: 0.0.0.0
+    CDS_DEFAULT_NAMESPACE: uim.cds

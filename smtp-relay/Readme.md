@@ -20,6 +20,7 @@ smtp-relay/
 ├── k8s/
 │   ├── namespace.yaml
 │   ├── configmap.yaml
+│   ├── pvc.yaml
 │   ├── deployment.yaml
 │   └── service.yaml
 ├── Readme.md
@@ -161,6 +162,7 @@ Cloud Foundry injects PORT at runtime; the service reads it automatically.
 ```bash
 kubectl apply -f k8s/namespace.yaml
 kubectl apply -f k8s/configmap.yaml
+kubectl apply -f k8s/pvc.yaml
 kubectl apply -f k8s/deployment.yaml
 kubectl apply -f k8s/service.yaml
 ```
@@ -169,4 +171,4 @@ kubectl apply -f k8s/service.yaml
 
 - SMTP adapter now uses vibe.d SMTP client with optional STARTTLS/TLS and AUTH (PLAIN, LOGIN, XOAUTH2).
 - File-based persistence is enabled by default via MESSAGE_STORE_PATH; set STORE_BACKEND=memory to revert to in-memory behavior.
-- For Kubernetes, replace emptyDir with a PersistentVolumeClaim for durable cross-pod storage.
+- Kubernetes persistence is configured via k8s/pvc.yaml and mounted at /data.

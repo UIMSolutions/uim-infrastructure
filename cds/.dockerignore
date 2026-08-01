@@ -1,0 +1,10 @@
+.git
+.gitignore
+.dub
+*.o
+*.obj
+*.a
+*.so
+*.dll
+*.dylib
+uim-cds-service

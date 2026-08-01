@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: acdoca-service-config
+  namespace: uim-acdoca
+data:
+  PORT: "8080"
+  BIND_ADDRESS: "0.0.0.0"
+  PID_FILE: "/tmp/uim-acdoca-service.pid"
+  ACDOCA_DEFAULT_COMPANY_CODE: "1000"
+  STORAGE_BACKEND: "memory"
+  AUTH_MODE: "none"
+  AUTH_REQUIRED_SCOPE: "acdoca.write"

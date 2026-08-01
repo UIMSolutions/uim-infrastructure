@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: uim-openstack-service
+  namespace: uim-openstack
+spec:
+  selector:
+    app: uim-openstack-service
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
