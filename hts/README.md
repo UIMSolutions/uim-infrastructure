@@ -142,6 +142,22 @@ cp /etc/shadow ./shadow.sample
 PASSWD_FILE=./passwd.sample SHADOW_FILE=./shadow.sample dub run
 ```
 
+## Smoke test
+
+The folder [hts/scripts/seed](hts/scripts/seed) contains tiny SAM, VCF, and FASTQ examples.
+
+Run the one-command API smoke test against a running service:
+
+```bash
+./scripts/smoke-test.sh
+```
+
+If the service is on a different host/port:
+
+```bash
+BASE_URL=http://127.0.0.1:8080 ./scripts/smoke-test.sh
+```
+
 ## Docker
 
 ```bash

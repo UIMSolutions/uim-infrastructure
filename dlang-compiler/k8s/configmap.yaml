@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dlang-compiler-service-config
+  namespace: uim-dlang-compiler
+data:
+  PORT: "8080"
+  BIND_ADDRESS: "0.0.0.0"
+  DLANG_COMPILER: "dmd"
