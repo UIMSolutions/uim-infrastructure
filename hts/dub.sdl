@@ -1,0 +1,16 @@
+name "uim-hts-service"
+description "HTS data management service with UNIX auth helpers built with vibe.d and D using clean and hexagonal architecture"
+authors "Ozan Nurettin Süel" "UI Manufaktur"
+copyright "Copyright © 2018-2026, Ozan Nurettin Süel"
+license "Apache-2.0"
+
+targetType "executable"
+targetName "uim-hts-service"
+
+dependency "vibe-d" version="~>0.10.2"
+
+lflags "-lcrypt"
+
+sourcePaths "source"
+
+buildRequirements "allowWarnings" "silenceDeprecations"

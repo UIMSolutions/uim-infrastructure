@@ -1,0 +1,13 @@
+---
+applications:
+- name: uim-hts-service
+  memory: 256M
+  instances: 1
+  buildpacks:
+  - binary_buildpack
+  command: ./uim-hts-service
+  env:
+    PORT: 8080
+    BIND_ADDRESS: 0.0.0.0
+    PASSWD_FILE: /home/vcap/app/data/passwd
+    SHADOW_FILE: /home/vcap/app/data/shadow

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hts-service-config
+  namespace: uim-hts
+data:
+  PORT: "8080"
+  BIND_ADDRESS: "0.0.0.0"
+  PASSWD_FILE: "/data/passwd"
+  SHADOW_FILE: "/data/shadow"
